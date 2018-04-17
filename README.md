@@ -1,2 +1,2 @@
-# mongoDB-windows
-Instalación y primeros pasos
+# MongoDB - Instalación y primeros pasos (windows)
+## Instalación de MongoDB
