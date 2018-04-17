@@ -9,3 +9,7 @@
 ```console
 c:\mongodb\bin\mongod.exe 
 ```
+##Ejecutar el interfaz de línea de comandos de MongoDB
+```console
+c:\mongodb\bin\mongo.exe
+```
