@@ -80,7 +80,7 @@ switched to db gestion
 { "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
 ```
 
-## Grabar datos
+## Insertar datos
 
 Vamos a grabar datos en la colección `agenda` dentro de la base de datos `gestion`. Una colección es el equivalente a una tabla en las bases de datos relacionales.
 
@@ -100,4 +100,83 @@ Observa que los documentos insertados (los datos sobre personas) no tienen por q
 ```console
 > show collections
 agenda
+```
+
+## Ver el contenido de una colección
+
+Sería el equivalente a `SELECT * FROM usuarios` en una base de datos relacional.
+
+```console
+> db.agenda.find()
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58937beca70c3985de49a390"), "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+```
+
+Observa que a cada elemento insertado se le asigna de forma automática un identificador único.
+
+## Mostrar un solo documento
+
+```console
+> db.agenda.findOne()
+{
+	"_id" : ObjectId("58937be7a70c3985de49a38f"),
+	"nombre" : "Mario",
+	"apellido" : "Neta"
+}
+```
+
+## Búsqueda condicional I
+
+```console
+> db.agenda.find({nombre: "Elba"})
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+> 
+> db.agenda.find({pais: "España"})
+{ "_id" : ObjectId("58937beca70c3985de49a390"), "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
+```
+
+## Búsqueda condicional II
+
+`$ne` significa *not equal*, `$gt` es *greater than* y `$lt` es *less than*.
+
+```console
+> db.agenda.find( { nombre: {$ne: "Elba"} } )
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58937beca70c3985de49a390"), "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
+> 
+> db.agenda.find( { pais: {$ne: "España"} } )
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+> 
+> db.agenda.find( { edad: {$gt: 18} } )
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+> 
+> db.agenda.find( { edad: {$lt: 18} } )
+```
+
+## Insertar varios documentos al mismo tiempo
+
+Mediante `insert` se puede insertar un elemento o bien un array con varios elementos.
+
+```console
+> var p1 = { nombre: "Lola", apellido: "Mento", edad: 35 }
+> var p2 = { nombre: "Encarna", apellido: "Vales", edad: 17, pais: "USA" }
+> db.agenda.insert( [p1, p2] )
+BulkWriteResult({
+	"writeErrors" : [ ],
+	"writeConcernErrors" : [ ],
+	"nInserted" : 2,
+	"nUpserted" : 0,
+	"nMatched" : 0,
+	"nModified" : 0,
+	"nRemoved" : 0,
+	"upserted" : [ ]
+})
+> db.agenda.find()
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58937beca70c3985de49a390"), "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+{ "_id" : ObjectId("58938745a70c3985de49a392"), "nombre" : "Lola", "apellido" : "Mento", "edad" : 35 }
+{ "_id" : ObjectId("58938745a70c3985de49a393"), "nombre" : "Encarna", "apellido" : "Vales", "edad" : 17, "pais" : "USA" }
 ```
