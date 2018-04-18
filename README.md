@@ -27,3 +27,11 @@ c:\mongodb\bin\mongod.exe
 ```console
 c:\mongodb\bin\mongo.exe
 ```
+ ## Ver bases de datos existentes
+  ```console
+ > show databases
+admin  0.000GB
+config 0.000GB
+local  0.000GB
+```
+Tambien podemos poner show dbs  
