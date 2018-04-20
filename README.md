@@ -317,3 +317,29 @@ El valor `1` se utiliza para realizar una consulta en orden ascendente y el `-1`
 ```
 
 
+## La función `skip()`
+
+La función `skip()` permite "saltar" un número determinado de documentos de la consulta.
+
+```console
+> db.agenda.find().sort( {apellido: 1} ).limit(2)
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+{ "_id" : ObjectId("58938745a70c3985de49a392"), "nombre" : "Salva", "apellido" : "Mento", "edad" : 35 }
+> 
+> db.agenda.find().sort( {apellido: 1} ).skip(1).limit(2)
+{ "_id" : ObjectId("58938745a70c3985de49a392"), "nombre" : "Salva", "apellido" : "Mento", "edad" : 35 }
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+```
+
+## La función `size()`
+
+A diferencia de `count()`, el método `size()` ofrece la cuenta de la consulta una vez filtrada con `skip()`, `limit()`, etc.
+
+```console
+> db.agenda.find().sort( {apellido: 1} ).skip(1).limit(2).count()
+4
+> 
+> db.agenda.find().sort( {apellido: 1} ).skip(1).limit(2).size()
+2
+```
+
