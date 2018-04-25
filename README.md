@@ -346,7 +346,7 @@ A diferencia de `count()`, el método `size()` ofrece la cuenta de la consulta u
 
 ## Agrupación de documentos
 
-Antes de hacer pruebas con la agrupación de documentos, vamos a meter más datos en nuestra colección de usuarios.
+Antes de hacer pruebas con la agrupación de documentos, vamos a meter más datos en nuestra colección de agenda.
 
 ```console
 > db.agenda.insert({nombre: "Elsa", apellido: "Pato", edad: 52, pais: "Portugal"})
@@ -373,7 +373,7 @@ WriteResult({ "nInserted" : 1 })
 { "_id" : ObjectId("5895b8ab15c260814ec7f13d"), "nombre" : "Elena", "apellido" : "Nito", "edad" : 30, "pais" : "USA" }
 ```
 
-Vamos a mostrar todos los países de donde son los usuarios.
+Vamos a mostrar todos los países de donde son las personas de la agenda.
 
 ```console
 > db.agenda.aggregate( [ {$group: {_id: "$pais"}} ] )
