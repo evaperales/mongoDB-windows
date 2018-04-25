@@ -419,3 +419,99 @@ Igual que todo lo anterior y además excluyendo los valores `null` para el atrib
 { "_id" : "Portugal", "repetidos" : 1, "edad media" : 52 }
 { "_id" : "Francia", "repetidos" : 1, "edad media" : 22 }
 ```
+
+
+## Consultas con expresiones regulares
+
+Vamos a mostrar todos los usuarios cuyos apellidos contienen la letra "e".
+
+```console
+> db.agenda.find( {apellido: /e/} )
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58938745a70c3985de49a392"), "nombre" : "Salva", "apellido" : "Mento", "edad" : 35 }
+{ "_id" : ObjectId("58938745a70c3985de49a393"), "nombre" : "Encarna", "apellido" : "Vales", "edad" : 17, "pais" : "USA" }
+{ "_id" : ObjectId("5895b88815c260814ec7f13c"), "nombre" : "Olga", "apellido" : "Seosa", "edad" : 29, "pais" : "España" }
+```
+
+Usuarios cuyo nombre termina con la cadena "na".
+
+```console
+> db.agenda.find( {nombre: /na$/} )
+{ "_id" : ObjectId("58938745a70c3985de49a393"), "nombre" : "Encarna", "apellido" : "Vales", "edad" : 17, "pais" : "USA" }
+{ "_id" : ObjectId("5895b8ab15c260814ec7f13d"), "nombre" : "Elena", "apellido" : "Nito", "edad" : 30, "pais" : "USA" }
+```
+
+Usuarios cuyo nombre comienza por "El".
+
+```console
+> db.agenda.find( {nombre: /^El/} )
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+{ "_id" : ObjectId("5895b74415c260814ec7f139"), "nombre" : "Elsa", "apellido" : "Pato", "edad" : 52, "pais" : "Portugal" }
+{ "_id" : ObjectId("5895b8ab15c260814ec7f13d"), "nombre" : "Elena", "apellido" : "Nito", "edad" : 30, "pais" : "USA" }
+> 
+```
+
+
+## Ver los documentos en un formato "bonito"
+
+El método `pretty()` nos permite ver los documentos de una manera bonita y legible. A continuación se compara una consulta sin `pretty()` y otra con `pretty()`.
+
+```console
+> db.agenda.find().limit(3)
+{ "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
+{ "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
+{ "_id" : ObjectId("58938745a70c3985de49a392"), "nombre" : "Salva", "apellido" : "Mento", "edad" : 35 }
+> 
+> db.agenda.find().limit(3).pretty()
+{
+	"_id" : ObjectId("58937be7a70c3985de49a38f"),
+	"nombre" : "Mario",
+	"apellido" : "Neta"
+}
+{
+	"_id" : ObjectId("58937c23a70c3985de49a391"),
+	"nombre" : "Elba",
+	"apellido" : "Lazo",
+	"edad" : 24
+}
+{
+	"_id" : ObjectId("58938745a70c3985de49a392"),
+	"nombre" : "Salva",
+	"apellido" : "Mento",
+	"edad" : 35
+}
+```
+
+
+## Crear colecciones con validación de atributos
+
+Al crear una colección, se puede indicar a MongoDB que los atributos sean de un tipo concreto o que cumplan con un determinado patrón.
+
+Vamos a crear una nueva colección llamada `empleado` cuyo atributo nombre será de tipo `string`, `sueldo` será de tipo `number` y `email` deberá contener un símbolo `@`.
+
+```console
+db.createCollection("empleado", {
+  validator: {
+    $and: [
+      { nombre: {$type: "string"} },
+      { sueldo: {$type: "number"} },
+      { email: {$regex: /@/} }
+    ]
+  }
+})
+```
+
+
+## Crear índices
+
+```console
+> db.agenda.createIndex({nombre: 1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+```
+
+
