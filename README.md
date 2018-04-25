@@ -349,18 +349,18 @@ A diferencia de `count()`, el método `size()` ofrece la cuenta de la consulta u
 Antes de hacer pruebas con la agrupación de documentos, vamos a meter más datos en nuestra colección de usuarios.
 
 ```console
-> db.usuarios.insert({nombre: "Elsa", apellido: "Pato", edad: 52, pais: "Portugal"})
+> db.agenda.insert({nombre: "Elsa", apellido: "Pato", edad: 52, pais: "Portugal"})
 WriteResult({ "nInserted" : 1 })
-> db.usuarios.insert({nombre: "Armando", apellido: "Bronca", edad: 22, pais: "Francia"})
+> db.agenda.insert({nombre: "Armando", apellido: "Bronca", edad: 22, pais: "Francia"})
 WriteResult({ "nInserted" : 1 })
-> db.usuarios.insert({nombre: "Leandro", apellido: "Gado", edad: 48, pais: "Venezuela"})
+> db.agenda.insert({nombre: "Leandro", apellido: "Gado", edad: 48, pais: "Venezuela"})
 WriteResult({ "nInserted" : 1 })
-> db.usuarios.insert({nombre: "Olga", apellido: "Seosa", edad: 29, pais: "España"})
+> db.agenda.insert({nombre: "Olga", apellido: "Seosa", edad: 29, pais: "España"})
 WriteResult({ "nInserted" : 1 })
-> db.usuarios.insert({nombre: "Elena", apellido: "Nito", edad: 30, pais: "USA"})
+> db.agenda.insert({nombre: "Elena", apellido: "Nito", edad: 30, pais: "USA"})
 WriteResult({ "nInserted" : 1 })
 > 
-> db.usuarios.find()
+> db.agenda.find()
 { "_id" : ObjectId("58937be7a70c3985de49a38f"), "nombre" : "Mario", "apellido" : "Neta" }
 { "_id" : ObjectId("58937beca70c3985de49a390"), "nombre" : "Pere", "apellido" : "Gil", "pais" : "España" }
 { "_id" : ObjectId("58937c23a70c3985de49a391"), "nombre" : "Elba", "apellido" : "Lazo", "edad" : 24 }
@@ -376,7 +376,7 @@ WriteResult({ "nInserted" : 1 })
 Vamos a mostrar todos los países de donde son los usuarios.
 
 ```console
-> db.usuarios.aggregate( [ {$group: {_id: "$pais"}} ] )
+> db.agenda.aggregate( [ {$group: {_id: "$pais"}} ] )
 { "_id" : "Venezuela" }
 { "_id" : "Francia" }
 { "_id" : null }
@@ -388,7 +388,7 @@ Vamos a mostrar todos los países de donde son los usuarios.
 Ahora igual pero diciendo cuántas veces se repite cada pais.
 
 ```console
-> db.usuarios.aggregate( [ {$group: {_id: "$pais", repetidos: {$sum: 1}}} ] )
+> db.agenda.aggregate( [ {$group: {_id: "$pais", repetidos: {$sum: 1}}} ] )
 { "_id" : "Venezuela", "repetidos" : 1 }
 { "_id" : "Francia", "repetidos" : 1 }
 { "_id" : null, "repetidos" : 3 }
@@ -400,7 +400,7 @@ Ahora igual pero diciendo cuántas veces se repite cada pais.
 Igual y además con la media de edad por pais.
 
 ```console
-> db.usuarios.aggregate( [ {$group: {_id: "$pais", repetidos: {$sum: 1}, "edad media": {$avg: "$edad"}}} ] )
+> db.agenda.aggregate( [ {$group: {_id: "$pais", repetidos: {$sum: 1}, "edad media": {$avg: "$edad"}}} ] )
 { "_id" : "Venezuela", "repetidos" : 1, "edad media" : 48 }
 { "_id" : "Francia", "repetidos" : 1, "edad media" : 22 }
 { "_id" : null, "repetidos" : 3, "edad media" : 29.5 }
@@ -412,7 +412,7 @@ Igual y además con la media de edad por pais.
 Igual que todo lo anterior y además excluyendo los valores `null` para el atributo `pais`.
 
 ```console
-> db.usuarios.aggregate( [ {$match: {pais: {$ne: null}}}, {$group: {_id: "$pais", repetidos: {$sum: 1}, "edad media": {$avg: "$edad"}}} ])
+> db.agenda.aggregate( [ {$match: {pais: {$ne: null}}}, {$group: {_id: "$pais", repetidos: {$sum: 1}, "edad media": {$avg: "$edad"}}} ])
 { "_id" : "Venezuela", "repetidos" : 1, "edad media" : 48 }
 { "_id" : "España", "repetidos" : 2, "edad media" : 29 }
 { "_id" : "USA", "repetidos" : 2, "edad media" : 23.5 }
