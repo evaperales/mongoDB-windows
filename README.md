@@ -10,11 +10,11 @@ Un documento es un concepto similar a un objeto, y una colección a una tabla de
 
 MongoDB se puede utilizar en muchos de los proyectos actuales. Por ejemplo, en las aplicaciones CRUD o en muchos de los desarrollos web. Cualquier aplicación que necesite almacenar datos semi estructurados puede usar MongoDB. 
 
-Aunque las colecciones de MongoDB no necesitan un modelo hay que tener claro si los datos deben estar normalizados, denormalizarlos o utilizar una aproximación híbrida. Estas decisiones pueden afectar al rendimiento de nuestra aplicación. En definitiva el esquema lo definen las consultas que vayamos a realizar con más frecuencia.
+Aunque las colecciones de MongoDB no necesitan un modelo, hay que tener claro si los datos deben estar normalizados, denormalizarlos o utilizar una aproximación híbrida. Estas decisiones pueden afectar al rendimiento de nuestra aplicación. En definitiva el esquema lo definen las consultas que vayamos a realizar con más frecuencia.
 
 MongoDB es especialmente útil en aplicaciones que requieran escalabilidad.
 
-Sin embargo, en MongoDB no existen las transacciones. Solo garantiza operaciones atómicas a nivel de documento. Si las transacciones son algo indispensable en nuestro desarrollo, deberemos pensar en otro sistema.Tampoco existen los JOINS. Para consultar datos relacionados en dos o más colecciones, tenemos que hacer más de una consulta. En general, si nuestros datos pueden ser estructurados en tablas, y necesitamos las relaciones, es mejor que optemos por un sistema de base de datos relacional.
+Sin embargo, en MongoDB no existen las transacciones. Solo garantiza operaciones atómicas a nivel de documento. Si las transacciones son algo indispensable en nuestro desarrollo, deberemos pensar en otro sistema.Tampoco existen los JOINS tal y como los conocemos. En general, si nuestros datos pueden ser estructurados en tablas, y necesitamos las relaciones, es mejor que optemos por un sistema de base de datos relacional.
 
 ## Instalación de MongoDB
 
