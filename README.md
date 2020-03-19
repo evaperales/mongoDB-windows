@@ -14,7 +14,7 @@ Aunque las colecciones de MongoDB no necesitan un modelo, hay que tener claro si
 
 MongoDB es especialmente útil en aplicaciones que requieran escalabilidad.
 
-Sin embargo, en MongoDB no existen las transacciones. Solo garantiza operaciones atómicas a nivel de documento. Si las transacciones son algo indispensable en nuestro desarrollo, deberemos pensar en otro sistema.Tampoco existen los JOINS tal y como los conocemos. En general, si nuestros datos pueden ser estructurados en tablas, y necesitamos las relaciones, es mejor que optemos por un sistema de base de datos relacional.
+Sin embargo, en MongoDB no existen las transacciones. Solo garantiza operaciones atómicas a nivel de documento. Si las transacciones son algo indispensable en nuestro desarrollo, deberemos pensar en otro sistema. Tampoco existen los JOINS tal y como los conocemos. En general, si nuestros datos pueden ser estructurados en tablas, y necesitamos las relaciones, es mejor que optemos por un sistema de base de datos relacional.
 
 ## Instalación de MongoDB
 
@@ -104,7 +104,7 @@ agenda
 
 ## Ver el contenido de una colección
 
-Sería el equivalente a `SELECT * FROM usuarios` en una base de datos relacional.
+Sería el equivalente a `SELECT * FROM agenda` en una base de datos relacional.
 
 ```console
 > db.agenda.find()
